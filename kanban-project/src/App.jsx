@@ -1,47 +1,28 @@
 import "./App.css";
-import PopExit from "./components/popUp/PopExit";
-import PopNewCard from "./components/popUp/PopNewCard";
-import PopBrowse from "./components/popUp/PopBrowse";
+import PopExit from "./components/popUp/PopExit/PopExit";
+import PopNewCard from "./components/popUp/PopNewCard/PopNewCard";
+import PopBrowse from "./components/popUp/PopBrowse/PopBrowse";
 import Header from "./components/header/Header";
-import WithoutStatus from "./components/Main/WithoutStatus";
-import NeedToDo from "./components/Main/NeedToDo";
-import InWork from "./components/Main/InWork";
-import Test from "./components/Main/Test";
-import Done from "./components/Main/Done";
+import MainContent from "./components/MainContent/MainContent";
+import Column from "./components/Columns/Column";
 
 function App() {
   return (
     <>
       <div className="wrapper">
-      {/* <!-- pop-up start--> */}
         <PopExit />
-
         <PopNewCard />
-
         <PopBrowse />
 
-        {/* <!-- pop-up end--> */}
-
         <Header />
-        
-        <main className="main">
-          <div className="container">
-            <div className="main__block">
-              <div className="main__content">
 
-                <WithoutStatus />
-                  
-                <NeedToDo />
-    
-                <InWork />
-    
-                <Test />
-    
-                <Done />
-              </div>
-            </div>
-          </div>
-        </main>
+        <MainContent>
+          <Column columnTitle={"Без статуса"} />
+          <Column columnTitle={"Нужно сделать"} />
+          <Column columnTitle={"В работе"} />
+          <Column columnTitle={"Тестирование"} />
+          <Column columnTitle={"Готово"} />
+        </MainContent>
       </div>
 
       <script src="js/script.js"></script>
