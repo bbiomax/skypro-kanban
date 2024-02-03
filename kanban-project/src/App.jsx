@@ -5,6 +5,15 @@ import PopBrowse from "./components/popUp/PopBrowse/PopBrowse";
 import Header from "./components/header/Header";
 import MainContent from "./components/MainContent/MainContent";
 import Column from "./components/Columns/Column";
+import { cardList } from "./data";
+
+const statusList = [
+  "Без статуса",
+  "Нужно сделать",
+  "В работе",
+  "Тестирование",
+  "Готово",
+];
 
 function App() {
   return (
@@ -17,11 +26,18 @@ function App() {
         <Header />
 
         <MainContent>
-          <Column columnTitle={"Без статуса"} />
+          {statusList.map((status) => (
+            <Column
+              columnTitle={status}
+              key={status}
+              cardList={cardList.filter((card) => card.status === status)}
+            />
+          ))}
+          {/* <Column columnTitle={"Без статуса"} />
           <Column columnTitle={"Нужно сделать"} />
           <Column columnTitle={"В работе"} />
           <Column columnTitle={"Тестирование"} />
-          <Column columnTitle={"Готово"} />
+          <Column columnTitle={"Готово"} /> */}
         </MainContent>
       </div>
 
