@@ -6,6 +6,7 @@ import Header from "./components/header/Header";
 import MainContent from "./components/MainContent/MainContent";
 import Column from "./components/Columns/Column";
 import { cardList } from "./data";
+import { useState } from "react";
 
 const statusList = [
   "Без статуса",
@@ -16,6 +17,19 @@ const statusList = [
 ];
 
 function App() {
+  const [cards, setCards] = useState(cardList);
+
+  function addCard() {
+    const newCard = {
+      id: cards.length + 1,
+      theme: "Web Design",
+      title: "Название задачи",
+      date: "30.10.23",
+      status: "Без статуса",
+    };
+    setCards([...cards, newCard]);
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -23,14 +37,14 @@ function App() {
         <PopNewCard />
         <PopBrowse />
 
-        <Header />
+        <Header addCard={addCard} />
 
         <MainContent>
           {statusList.map((status) => (
             <Column
               columnTitle={status}
               key={status}
-              cardList={cardList.filter((card) => card.status === status)}
+              cardList={cards.filter((card) => card.status === status)}
             />
           ))}
           {/* <Column columnTitle={"Без статуса"} />
