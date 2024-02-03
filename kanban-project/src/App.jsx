@@ -6,7 +6,7 @@ import Header from "./components/header/Header";
 import MainContent from "./components/MainContent/MainContent";
 import Column from "./components/Columns/Column";
 import { cardList } from "./data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const statusList = [
   "Без статуса",
@@ -18,6 +18,13 @@ const statusList = [
 
 function App() {
   const [cards, setCards] = useState(cardList);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   function addCard() {
     const newCard = {
@@ -39,20 +46,19 @@ function App() {
 
         <Header addCard={addCard} />
 
-        <MainContent>
-          {statusList.map((status) => (
-            <Column
-              columnTitle={status}
-              key={status}
-              cardList={cards.filter((card) => card.status === status)}
-            />
-          ))}
-          {/* <Column columnTitle={"Без статуса"} />
-          <Column columnTitle={"Нужно сделать"} />
-          <Column columnTitle={"В работе"} />
-          <Column columnTitle={"Тестирование"} />
-          <Column columnTitle={"Готово"} /> */}
-        </MainContent>
+        {isLoading ? (
+          "Загрузка..."
+        ) : (
+          <MainContent>
+            {statusList.map((status) => (
+              <Column
+                columnTitle={status}
+                key={status}
+                cardList={cards.filter((card) => card.status === status)}
+              />
+            ))}
+          </MainContent>
+        )}
       </div>
 
       <script src="js/script.js"></script>
