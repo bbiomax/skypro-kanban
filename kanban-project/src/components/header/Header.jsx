@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyledHeader, HeaderBlock } from "./Header.styled";
+import * as S from "./Header.styled";
 import { Container } from "../../styled/common/common.styled";
 
 function Header({ addCard }) {
@@ -9,9 +9,9 @@ function Header({ addCard }) {
     setIsOpened((prev) => !prev);
   }
   return (
-    <StyledHeader>
+    <S.StyledHeader>
       <Container>
-        <HeaderBlock>
+        <S.HeaderBlock>
           <div className="header__logo _show _light">
             <a href="" target="_self">
               <img src="images/logo.png" alt="logo" />
@@ -22,7 +22,7 @@ function Header({ addCard }) {
               <img src="images/logo_dark.png" alt="logo" />
             </a>
           </div>
-          <nav className="header__nav">
+          <S.HeaderNav>
             <button onClick={addCard} className="header__btn-main-new _hover01" id="btnMainNew">
               Создать новую задачу
             </button>
@@ -48,10 +48,10 @@ function Header({ addCard }) {
               </div>
             )}
             
-          </nav>
-        </HeaderBlock>
+          </S.HeaderNav>
+        </S.HeaderBlock>
       </Container>
-    </StyledHeader>
+    </S.StyledHeader>
   );
 }
 
