@@ -3,9 +3,9 @@ import * as S from "./Card.styled";
 
 function Card({ topic, title }) {
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
+    <S.CardsItem>
+      <S.CardsCard>
+        <S.CardGroup>
           <S.CardTopic $themeColor={topicHeader[topic]}>
             <S.TopicText>{topic}</S.TopicText>
           </S.CardTopic>
@@ -16,13 +16,13 @@ function Card({ topic, title }) {
               <div></div>
             </div>
           </a>
-        </div>
-        <div className="card__content">
+        </S.CardGroup>
+        <S.CardContent>
           <a href="" target="_blank">
             <h3 className="card__title">{title}</h3>
           </a>
-          <div className="card__date">
-            <svg
+          <S.CardDate>
+            <S.CardDateSvg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
               height="13"
@@ -49,12 +49,12 @@ function Card({ topic, title }) {
                   <rect width="13" height="13" fill="white" />
                 </clipPath>
               </defs>
-            </svg>
-            <p>30.10.23</p>
-          </div>
-        </div>
-      </div>
-    </div>
+            </S.CardDateSvg>
+            <S.CardDateText>30.10.23</S.CardDateText>
+          </S.CardDate>
+        </S.CardContent>
+      </S.CardsCard>
+    </S.CardsItem>
   );
 }
 
