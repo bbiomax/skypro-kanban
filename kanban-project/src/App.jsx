@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { appRoutes } from "./lib/appRoutes";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
@@ -12,13 +12,16 @@ import './App.css';
 
 export default function App() {
   const [user, setUser] = useState(true);
+  const navigate = useNavigate();
 
   function login() {
     setUser(true);
+    navigate(appRoutes.HOME);
   }
 
   function logout() {
     setUser(false);
+    navigate(appRoutes.LOGIN);
   }
 
   return (

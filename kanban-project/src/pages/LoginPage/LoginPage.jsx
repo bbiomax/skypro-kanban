@@ -13,7 +13,7 @@ export default function LoginPage({login}) {
                             <S.ModalFormLogin id="formLogIn" action="#">
                                 <S.ModalInput type="text" name="login" id="formlogin" placeholder="Эл. почта" />
                                 <S.ModalInput type="password" name="password" id="formpassword" placeholder="Пароль" />
-                                <S.ModalBtnEnter onClick={login} id="btnEnter">Войти</S.ModalBtnEnter>
+                                <S.ModalBtnEnter onClick={login}>Войти</S.ModalBtnEnter>
                                 <S.ModalFormGroup>
                                     <p>Нужно зарегистрироваться?</p>
                                     <a href="signup.html">Регистрируйтесь здесь</a>

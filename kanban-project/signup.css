@@ -37,7 +37,7 @@ a {
   font-family: "Roboto", sans-serif;
 }
 
-.wrapper {
+/* .wrapper {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -94,8 +94,8 @@ a {
 }
 .modal__form-login input:not(:last-child) {
   margin-bottom: 7px;
-}
-.modal__input {
+} */
+/* .modal__input {
   width: 100%;
   min-width: 100%;
   border-radius: 8px;
@@ -118,7 +118,7 @@ a {
   line-height: 21px;
   letter-spacing: -0.28px;
   color: #94A6BE;
-}
+} */
 .modal__btn-signup-ent {
   width: 100%;
   height: 30px;

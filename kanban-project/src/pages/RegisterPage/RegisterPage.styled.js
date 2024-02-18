@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const BodySignIn = styled.body`
+export const BodySignUp = styled.body`
   width: 100%;
   height: 100%;
   font-family: "Roboto", sans-serif;
@@ -14,7 +14,7 @@ export const StyledWrapper = styled.div`
   background-color: #eaeef6;
 `;
 
-export const ContainerSignIn = styled.div`
+export const ContainerSignUp = styled.div`
   display: block;
   width: 100vw;
   min-height: 100vh;
@@ -63,7 +63,7 @@ export const ModalFormLogin = styled.form`
   align-items: center;
   justify-content: center;
 
-  & > input:first-child {
+  & > input:not(:last-child) {
     margin-bottom: 7px;
   }
 `;
@@ -95,7 +95,7 @@ export const ModalInput = styled.input`
   }
 `;
 
-export const ModalBtnEnter = styled.span`
+export const ModalBtnEnter = styled.button`
   width: 100%;
   height: 30px;
   background-color: #565eef;
