@@ -8,12 +8,13 @@ function Column({ columnTitle, cardList }) {
         <S.ColumnTitleText>{columnTitle}</S.ColumnTitleText>
       </S.ColumnTitle>
       <S.StyledCards>
-        {cardList.map((card) => <Card topic={card.theme} title={card.title} key={card.id} />)}
-        {/* <Card topic={"Web design"} title={"Название задачи"} />
-        <Card topic={"Research"} title={"Название задачи"} />
-        <Card topic={"Web design"} title={"Название задачи"} />
-        <Card topic={"Copywriting"} title={"Название задачи"} />
-        <Card topic={"Web design"} title={"Название задачи"} /> */}
+        {cardList.map((card) => (
+          <Card 
+          topic={card.theme} 
+          title={card.title} 
+          key={card.id}
+          id={card.id} />
+        ))}
       </S.StyledCards>
     </S.MainColumn>
   );
