@@ -45,9 +45,9 @@ function Header({ addCard }) {
                   <input type="checkbox" className="checkbox" name="checkbox" />
                 </div>
                 <Link to={appRoutes.EXIT}>
-                  <span type="button" className="_hover03">
+                  <button type="button" className="_hover03">
                     Выйти
-                  </span>
+                  </button>
                 </Link>
               </div>
             )}

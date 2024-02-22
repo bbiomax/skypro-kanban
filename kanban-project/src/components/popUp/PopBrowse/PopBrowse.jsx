@@ -181,9 +181,9 @@ function PopBrowse() {
               </button>
             </div>
             <Link to={appRoutes.HOME}>
-              <span className="btn-browse__close _btn-bg _hover01">
+              <button className="btn-browse__close _btn-bg _hover01">
                 Закрыть
-              </span>
+              </button>
             </Link>
           </div>
           <div className="pop-browse__btn-edit _hide">
