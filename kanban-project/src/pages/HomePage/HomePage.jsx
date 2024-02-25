@@ -17,16 +17,32 @@ function HomePage({ user }) {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // useEffect(() => {
+  //   getTodos({ token: user.token })
+  //     .then((todos) => {
+  //       console.log(todos);
+  //       setCards(todos.tasks);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // }, [user]);
+
   useEffect(() => {
-    getTodos({ token: user.token })
-      .then((todos) => {
-        console.log(todos);
-        setCards(todos.tasks);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        alert(error);
-      });
+    if (user && user.token) {
+      getTodos({ token: user.token })
+        .then((todos) => {
+          console.log(todos);
+          if (todos.tasks.length > 0) {
+            setCards(todos.tasks);
+          }
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
   }, [user]);
 
   function addCard() {
