@@ -1,6 +1,8 @@
 import { useState } from "react";
 import * as S from "./RegisterPage.styled";
 import { signUp } from "../../api";
+import { Link } from "react-router-dom";
+import { appRoutes } from "../../lib/appRoutes";
 
 export default function RegisterPage({ onRegister }) {
   const [signupData, setSignupData] = useState({
@@ -65,7 +67,7 @@ export default function RegisterPage({ onRegister }) {
                 </S.ModalBtnEnter>
                 <S.ModalFormGroup>
                   <p>Уже есть аккаунт?</p>
-                  <a href="signin.html">Войдите здесь</a>
+                  <Link to={appRoutes.LOGIN}>Войдите здесь</Link>
                 </S.ModalFormGroup>
               </S.ModalFormLogin>
             </S.ModalBlock>

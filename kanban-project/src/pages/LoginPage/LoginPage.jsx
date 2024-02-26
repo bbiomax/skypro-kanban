@@ -1,6 +1,8 @@
 import { useState } from "react";
 import * as S from "./LoginPage.styled";
 import { signIn } from "../../api";
+import { Link } from "react-router-dom";
+import { appRoutes } from "../../lib/appRoutes";
 
 export default function LoginPage({ login }) {
   const [loginData, setLoginData] = useState({ login: "", password: "" });
@@ -49,7 +51,7 @@ export default function LoginPage({ login }) {
                 <S.ModalBtnEnter onClick={handleLogin}>Войти</S.ModalBtnEnter>
                 <S.ModalFormGroup>
                   <p>Нужно зарегистрироваться?</p>
-                  <a href="signup.html">Регистрируйтесь здесь</a>
+                  <Link to={appRoutes.REGISTER}>Регистрируйтесь здесь</Link>
                 </S.ModalFormGroup>
               </S.ModalFormLogin>
             </S.ModalBlock>

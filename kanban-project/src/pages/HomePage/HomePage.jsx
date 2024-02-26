@@ -34,9 +34,7 @@ function HomePage({ user }) {
       getTodos({ token: user.token })
         .then((todos) => {
           console.log(todos);
-          if (todos.tasks.length > 0) {
-            setCards(todos.tasks);
-          }
+          setCards(todos.tasks);
           setIsLoading(false);
         })
         .catch((error) => {
