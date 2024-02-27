@@ -21,8 +21,8 @@ export default function RegisterPage({ onRegister }) {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const newUser = await signUp(signupData);
-      onRegister(newUser);
+      const data = await signUp(signupData);
+      onRegister(data.user);
     } catch (error) {
       alert(error.message);
     }
