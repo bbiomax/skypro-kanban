@@ -1,10 +1,14 @@
 import { useState } from "react";
 import * as S from "./LoginPage.styled";
 import { signIn } from "../../api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
+import { useUser } from "../../hooks/useUser";
 
-export default function LoginPage({ login }) {
+export default function LoginPage() {
+  const {login} = useUser();
+  const navigate = useNavigate();
+
   const [loginData, setLoginData] = useState({ login: "", password: "" });
 
   const handleInputChange = (e) => {
@@ -19,6 +23,7 @@ export default function LoginPage({ login }) {
   const handleLogin = async () => {
     await signIn(loginData).then((data) => {
       login(data.user);
+      navigate(appRoutes.HOME);
     });
   };
 
