@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { cardList } from "../../data";
 import Header from "../../components/header/Header";
 import { MainContent } from "../../components/MainContent/MainContent.styled";
 import Column from "../../components/Columns/Column";
 import { Outlet } from "react-router-dom";
+import { getTodos } from "../../api";
 
 const statusList = [
   "Без статуса",
@@ -13,15 +13,35 @@ const statusList = [
   "Готово",
 ];
 
-function HomePage() {
-  const [cards, setCards] = useState(cardList);
+function HomePage({ user }) {
+  const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // useEffect(() => {
+  //   getTodos({ token: user.token })
+  //     .then((todos) => {
+  //       console.log(todos);
+  //       setCards(todos.tasks);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // }, [user]);
+
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+    if (user && user.token) {
+      getTodos({ token: user.token })
+        .then((todos) => {
+          console.log(todos);
+          setCards(todos.tasks);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  }, [user]);
 
   function addCard() {
     const newCard = {

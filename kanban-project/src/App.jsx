@@ -11,30 +11,30 @@ import ExitPage from "./pages/ExitPage/ExitPage";
 import './App.css';
 
 export default function App() {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  function login() {
-    setUser(true);
+  function login(newUser) {
+    setUser(newUser);
     navigate(appRoutes.HOME);
   }
 
   function logout() {
-    setUser(false);
+    setUser(null);
     navigate(appRoutes.LOGIN);
   }
 
   return (
     <Routes>
       <Route element={<PrivateRoute user={user} />}>
-        <Route path={appRoutes.HOME} element={<HomePage />}>
+        <Route path={appRoutes.HOME} element={<HomePage user={user} />}>
           <Route path={appRoutes.TASK} element={<TaskPage />} />
           <Route path={appRoutes.EXIT} element={<ExitPage logout={logout} />} />
         </Route>
       </Route>
 
       <Route path={appRoutes.LOGIN} element={<LoginPage login={login} />} />
-      <Route path={appRoutes.REGISTER} element={<RegisterPage />} />
+      <Route path={appRoutes.REGISTER} element={<RegisterPage onRegister={login} />} />
       <Route path={appRoutes.NOT_FOUND} element={<NotFoundPage />} />
     </Routes>
   );
