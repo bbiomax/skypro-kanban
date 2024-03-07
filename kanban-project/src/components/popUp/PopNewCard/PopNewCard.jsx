@@ -1,4 +1,5 @@
 function PopNewCard() {
+  console.log('ну и');
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
