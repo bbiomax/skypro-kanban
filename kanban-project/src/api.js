@@ -47,3 +47,19 @@ export function signUp({ login, name, password }) {
     return response.json();
   });
 }
+
+// export function createTask({ taskData, token }) {
+//   return fetch(baseHost, {
+//     method: "POST",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(taskData),
+//   }).then((response) => {
+//     if (response.status !== 200) {
+//       throw new Error("Ошибка при создании задачи");
+//     }
+//     return response.json();
+//   });
+// }

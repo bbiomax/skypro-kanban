@@ -13,13 +13,43 @@ function PopNewCard() {
     topic: "",
   });
 
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   const taskData = {
+  //     ...newTask,
+  //     date: selectedDate,
+  //   };
+  //   console.log(taskData);
+  // };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     const taskData = {
-      ...newTask,
-      date: selectedDate,
+      title: newTask.title || "Новая задача",
+      topic: newTask.topic || "Research",
+      status: "Без статуса",
+      description: newTask.description || "",
+      date: selectedDate || new Date().toISOString(),
     };
-    console.log(taskData);
+
+    fetch("https://wedev-api.sky.pro/api/kanban", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(taskData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Задача успешно добавлена");
+        } else {
+          console.log(`Ошибка добавления задачи: ${response.status}`);
+        }
+      })
+      .catch((error) => {
+        console.log(`Ошибка добавления задачи: ${error}`);
+      });
   };
 
   const handleInputChange = (e) => {
