@@ -278,7 +278,7 @@ body {
 }
 
 .pop-new-card {
-  display: none;
+  /* display: none; */
   width: 100%;
   min-width: 375px;
   height: 100%;
@@ -309,12 +309,12 @@ body {
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   position: relative;
-} */
-/* .pop-new-card__content {
+}
+.pop-new-card__content {
   display: block;
   text-align: left;
-} */
-/* .pop-new-card__ttl {
+}
+.pop-new-card__ttl {
   color: #000;
   font-size: 20px;
   font-weight: 600;
@@ -327,11 +327,11 @@ body {
   right: 30px;
   color: #94a6be;
   cursor: pointer;
-} */
-/* .pop-new-card__close:hover {
+}
+.pop-new-card__close:hover {
   color: #000000;
-} */
-/* .pop-new-card__wrap {
+}
+.pop-new-card__wrap {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;

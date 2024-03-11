@@ -8,7 +8,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import TaskPage from "./pages/TaksPage/TaskPage";
 import ExitPage from "./pages/ExitPage/ExitPage";
 import './App.css';
-// import CreateNewCard from "./pages/CreateNewCardPage/CreateNewCardPage";
+import CreateNewCardPage from "./pages/CreateNewCardPage/CreateNewCardPage";
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
       <Route element={<PrivateRoute />}>
         <Route path={appRoutes.HOME} element={<HomePage />}>
           <Route path={appRoutes.TASK} element={<TaskPage />} />
-          {/* <Route path={appRoutes.CREATE_TASK} element={<CreateNewCard />} /> */}
+          <Route path={appRoutes.CREATE_NEW_CARD} element={<CreateNewCardPage />} />
           <Route path={appRoutes.EXIT} element={<ExitPage />} />
         </Route>
       </Route>

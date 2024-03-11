@@ -3,19 +3,13 @@ import * as S from "./Header.styled";
 import { Container } from "../../styled/common/common.styled";
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
-import PopNewCard from "../popUp/PopNewCard/PopNewCard";
 
 function Header() {
   // { addCard }
   const [isOpened, setIsOpened] = useState(false);
-  const [isModalOpened, setIsModalOpened] = useState(false);
 
   function togglePopup() {
     setIsOpened((prev) => !prev);
-  }
-
-  function toggleModal() {
-    setIsModalOpened((prev) => !prev);
   }
   return (
     <S.StyledHeader>
@@ -32,11 +26,11 @@ function Header() {
             </a>
           </div>
           <S.HeaderNav>
-            <button onClick={toggleModal} className="header__btn-main-new _hover01" id="btnMainNew">
-              Создать новую задачу
-            </button>
-
-            {isModalOpened && <PopNewCard />}
+            <Link to={appRoutes.CREATE_NEW_CARD}>
+              <button className="header__btn-main-new _hover01" id="btnMainNew">
+                Создать новую задачу
+              </button>
+            </Link>
 
             <div onClick={togglePopup} className="header__user _hover02">
               Ivan Ivanov
