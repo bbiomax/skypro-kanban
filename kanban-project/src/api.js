@@ -1,3 +1,5 @@
+import { useUser } from "./hooks/useUser";
+
 const baseHost = "https://wedev-api.sky.pro/api/kanban";
 
 const userHost = "https://wedev-api.sky.pro/api/user";
@@ -63,3 +65,31 @@ export function signUp({ login, name, password }) {
 //     return response.json();
 //   });
 // }
+
+export function addNewTask(taskData) {
+  const { user } = useUser();
+
+  const addTask = async () => {
+    try {
+      const response = await postTask({ user, taskData });
+      alert("Новая задача успешно добавлена:", response);
+    } catch (error) {
+      alert("Ошибка добавления новой задачи:", error);
+    }
+  };
+
+  return addTask;
+}
+
+export async function postTask({ user, taskData }) {
+  const token = user.token;
+  const res = await fetch(baseHost, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(taskData),
+  });
+  const data = await res.json();
+  return data;
+}

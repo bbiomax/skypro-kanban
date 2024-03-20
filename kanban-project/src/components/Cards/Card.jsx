@@ -10,13 +10,13 @@ function Card({ topic, title, id }) {
           <S.CardTopic $themeColor={topicHeader[topic]}>
             <S.TopicText>{topic}</S.TopicText>
           </S.CardTopic>
-          <a href="#popBrowse" target="_self">
+          <Link to={`task/${id}`}>
             <div className="card__btn">
               <div></div>
               <div></div>
               <div></div>
             </div>
-          </a>
+          </Link>
         </S.CardGroup>
         <S.CardContent>
           <Link to={`task/${id}`}>
