@@ -4,7 +4,8 @@ import { Container } from "../../styled/common/common.styled";
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
 
-function Header({ addCard }) {
+function Header() {
+  // { addCard }
   const [isOpened, setIsOpened] = useState(false);
 
   function togglePopup() {
@@ -25,9 +26,12 @@ function Header({ addCard }) {
             </a>
           </div>
           <S.HeaderNav>
-            <button onClick={addCard} className="header__btn-main-new _hover01" id="btnMainNew">
-              Создать новую задачу
-            </button>
+            <Link to={appRoutes.CREATE_NEW_CARD}>
+              <button className="header__btn-main-new _hover01" id="btnMainNew">
+                Создать новую задачу
+              </button>
+            </Link>
+
             <div onClick={togglePopup} className="header__user _hover02">
               Ivan Ivanov
             </div>
@@ -51,7 +55,6 @@ function Header({ addCard }) {
                 </Link>
               </div>
             )}
-            
           </S.HeaderNav>
         </S.HeaderBlock>
       </Container>

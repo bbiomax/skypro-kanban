@@ -1,10 +1,14 @@
 import { useState } from "react";
 import * as S from "./RegisterPage.styled";
 import { signUp } from "../../api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
+import { useUser } from "../../hooks/useUser";
 
-export default function RegisterPage({ onRegister }) {
+export default function RegisterPage() {
+  const {login} = useUser();
+  const navigate = useNavigate();
+
   const [signupData, setSignupData] = useState({
     name: "",
     login: "",
@@ -22,7 +26,8 @@ export default function RegisterPage({ onRegister }) {
     e.preventDefault();
     try {
       const data = await signUp(signupData);
-      onRegister(data.user);
+      login(data.user);
+      navigate(appRoutes.HOME)
     } catch (error) {
       alert(error.message);
     }

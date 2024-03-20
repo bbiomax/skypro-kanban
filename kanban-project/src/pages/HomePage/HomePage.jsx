@@ -4,6 +4,7 @@ import { MainContent } from "../../components/MainContent/MainContent.styled";
 import Column from "../../components/Columns/Column";
 import { Outlet } from "react-router-dom";
 import { getTodos } from "../../api";
+import { useUser } from "../../hooks/useUser";
 
 const statusList = [
   "Без статуса",
@@ -13,21 +14,11 @@ const statusList = [
   "Готово",
 ];
 
-function HomePage({ user }) {
+function HomePage() {
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   getTodos({ token: user.token })
-  //     .then((todos) => {
-  //       console.log(todos);
-  //       setCards(todos.tasks);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-  //     });
-  // }, [user]);
+  const {user} = useUser();
 
   useEffect(() => {
     if (user && user.token) {
