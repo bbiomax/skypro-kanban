@@ -93,3 +93,22 @@ export async function postTask({ user, taskData }) {
   const data = await res.json();
   return data;
 }
+
+export const deleteTask = async (taskId) => {
+  try {
+    const response = await fetch(`${baseHost}/tasks/${taskId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка удаления задачи");
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
