@@ -12,6 +12,7 @@ function PopNewCard() {
     title: "",
     description: "",
     topic: "",
+    status: "Без статуса",
   });
 
   const handleInputChange = (e) => {
@@ -23,11 +24,13 @@ function PopNewCard() {
     });
   };
 
+  console.log(newTask.status);
+
   const addTask = addNewTask(newTask);
   const handleFormSubmit = (e) => {
     e.preventDefault();
     addTask();
-  }
+  };
 
   return (
     <div className="pop-new-card" id="popNewCard">

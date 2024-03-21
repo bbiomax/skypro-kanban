@@ -93,3 +93,23 @@ export async function postTask({ user, taskData }) {
   const data = await res.json();
   return data;
 }
+
+export const deleteTask = async (user, taskId) => {
+  try {
+    const token = user.token;
+    const response = await fetch(`${baseHost}/${taskId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка удаления задачи");
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
