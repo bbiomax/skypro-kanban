@@ -83,6 +83,7 @@ export function addNewTask(taskData) {
 
 export async function postTask({ user, taskData }) {
   const token = user.token;
+  console.log(user);
   const res = await fetch(baseHost, {
     method: "POST",
     headers: {
@@ -94,12 +95,13 @@ export async function postTask({ user, taskData }) {
   return data;
 }
 
-export const deleteTask = async (taskId) => {
+export const deleteTask = async (user, taskId) => {
   try {
-    const response = await fetch(`${baseHost}/tasks/${taskId}`, {
+    const token = user.token;
+    const response = await fetch(`${baseHost}/${taskId}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
 

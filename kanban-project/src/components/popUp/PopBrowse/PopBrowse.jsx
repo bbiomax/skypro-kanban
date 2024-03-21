@@ -2,9 +2,11 @@ import { Link, useParams } from "react-router-dom";
 import { appRoutes } from "../../../lib/appRoutes";
 import { useState } from "react";
 import { deleteTask } from "../../../api";
+import { useUser } from "../../../hooks/useUser";
 
 function PopBrowse() {
   const { id } = useParams();
+  const { user } = useUser();
 
   const [editMode, setEditMode] = useState(false);
   // const [status, setStatus] = useState("Нужно сделать");
@@ -14,7 +16,7 @@ function PopBrowse() {
   };
 
   const handleDelete = async () => {
-    const success = await deleteTask(id);
+    const success = await deleteTask(user, id);
     if (success) {
       console.log("Задача успешно удалена");
     } else {
