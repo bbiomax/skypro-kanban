@@ -24,6 +24,15 @@ function PopBrowse() {
     }
   };
 
+  const handleCancelEdit = () => {
+    setEditMode(false);
+  }
+
+  const handleTextAreaChange = (e) => {
+    const textArea = e.target;
+    textArea.readOnly = !editMode;
+  }
+
   // const handleChangeStatus = (newStatus) => {
   //   setStatus(newStatus);
   // };
@@ -98,8 +107,9 @@ function PopBrowse() {
                     className="form-browse__area"
                     name="text"
                     id="textArea01"
-                    readOnly
+                    readOnly={!editMode}
                     placeholder="Введите описание задачи..."
+                    onChange={handleTextAreaChange}
                   ></textarea>
                 </div>
               </form>
@@ -236,9 +246,9 @@ function PopBrowse() {
                     </button>
                     <button
                       className="btn-edit__edit _btn-bor _hover03"
-                      onClick={handleEdit}
+                      onClick={handleCancelEdit}
                     >
-                      <a href="#">Отменить</a>
+                      <span>Отменить</span>
                     </button>
                     <button
                       className="btn-edit__delete _btn-bor _hover03"

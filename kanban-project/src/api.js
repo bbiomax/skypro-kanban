@@ -83,7 +83,6 @@ export function addNewTask(taskData) {
 
 export async function postTask({ user, taskData }) {
   const token = user.token;
-  console.log(user);
   const res = await fetch(baseHost, {
     method: "POST",
     headers: {
