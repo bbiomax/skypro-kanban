@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { appRoutes } from "../../../lib/appRoutes";
 import { useState } from "react";
-import { deleteTask } from "../../../api";
+import { deleteTask, putTask } from "../../../api";
 import { useUser } from "../../../hooks/useUser";
 
 function PopBrowse() {
@@ -26,12 +26,21 @@ function PopBrowse() {
 
   const handleCancelEdit = () => {
     setEditMode(false);
-  }
+  };
 
   const handleTextAreaChange = (e) => {
     const textArea = e.target;
     textArea.readOnly = !editMode;
-  }
+  };
+
+  const handleSaveTask = async () => {
+    const updatedTask = await putTask({ id, user });
+    if (updatedTask) {
+      console.log("Задача успешно сохранена", updatedTask);
+    } else {
+      console.log("Ошибка сохранения задачи");
+    }
+  };
 
   // const handleChangeStatus = (newStatus) => {
   //   setStatus(newStatus);
@@ -241,8 +250,8 @@ function PopBrowse() {
               ) : (
                 <div className="pop-browse__btn-edit">
                   <div className="btn-group">
-                    <button className="btn-edit__edit _btn-bg _hover01">
-                      <a href="#">Сохранить</a>
+                    <button onClick={handleSaveTask} className="btn-edit__edit _btn-bg _hover01">
+                      <span>Сохранить</span>
                     </button>
                     <button
                       className="btn-edit__edit _btn-bor _hover03"

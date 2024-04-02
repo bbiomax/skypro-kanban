@@ -112,4 +112,27 @@ export const deleteTask = async (user, taskId) => {
   } catch (error) {
     return false;
   }
-}
+};
+
+export const putTask = async ({ taskId, user }) => {
+  const token = user.token;
+
+  try {
+    const res = await fetch(`${baseHost}/${taskId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (!res.ok) {
+      throw new Error('Ошибка сохранения задачи');
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
