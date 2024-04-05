@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { appRoutes } from "../../../lib/appRoutes";
 import Calendar from "../../Calendar/Calendar";
 import { useState } from "react";
 import * as S from "./PopNewCard.styled";
-import { addNewTask } from "../../../api";
+import { postTask } from "../../../api";
+import { useUser } from "../../../hooks/useUser";
+import { useCards } from "../../../hooks/useCards";
 
 function PopNewCard() {
   const [selectedDate, setSelectedDate] = useState();
+  const { user } = useUser();
+  const { setCards } = useCards();
+  const navigate = useNavigate();
 
   const [newTask, setNewTask] = useState({
     title: "",
@@ -26,10 +31,12 @@ function PopNewCard() {
 
   console.log(newTask.status);
 
-  const addTask = addNewTask(newTask);
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    addTask();
+    postTask({ user, taskData: newTask }).then((response) => {
+      setCards(response.tasks);
+      navigate(appRoutes.HOME);
+    });
   };
 
   return (

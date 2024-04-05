@@ -5,6 +5,7 @@ import Column from "../../components/Columns/Column";
 import { Outlet } from "react-router-dom";
 import { getTodos } from "../../api";
 import { useUser } from "../../hooks/useUser";
+import { useCards } from "../../hooks/useCards";
 
 const statusList = [
   "Без статуса",
@@ -15,10 +16,10 @@ const statusList = [
 ];
 
 function HomePage() {
-  const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const {user} = useUser();
+  const {cards, setCards} = useCards();
 
   useEffect(() => {
     if (user && user.token) {

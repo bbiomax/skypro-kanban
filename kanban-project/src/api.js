@@ -66,21 +66,6 @@ export function signUp({ login, name, password }) {
 //   });
 // }
 
-export function addNewTask(taskData) {
-  const { user } = useUser();
-
-  const addTask = async () => {
-    try {
-      const response = await postTask({ user, taskData });
-      alert("Новая задача успешно добавлена:", response);
-    } catch (error) {
-      alert("Ошибка добавления новой задачи:", error);
-    }
-  };
-
-  return addTask;
-}
-
 export async function postTask({ user, taskData }) {
   const token = user.token;
   const res = await fetch(baseHost, {
@@ -123,10 +108,17 @@ export const putTask = async ({ taskId, user }) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
+      body: JSON.stringify({
+        title: "Новая задача 2!",
+        topic: "Research",
+        status: "Без статуса",
+        description: "Подробное описание задачи",
+        date: "2024-01-07T16:26:18.179Z",
+      }),
+    });
 
     if (!res.ok) {
-      throw new Error('Ошибка сохранения задачи');
+      throw new Error("Ошибка сохранения задачи");
     }
 
     const data = await res.json();

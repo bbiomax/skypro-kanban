@@ -3,13 +3,21 @@ import { appRoutes } from "../../../lib/appRoutes";
 import { useState } from "react";
 import { deleteTask, putTask } from "../../../api";
 import { useUser } from "../../../hooks/useUser";
+import { useCards } from "../../../hooks/useCards";
 
 function PopBrowse() {
   const { id } = useParams();
   const { user } = useUser();
+  const { cards } = useCards();
+  console.log(user);
+
+  const card = cards.find((item) => {
+    return item._id === id;
+  });
+  console.log(card);
 
   const [editMode, setEditMode] = useState(false);
-  // const [status, setStatus] = useState("Нужно сделать");
+  // const [status, setStatus] = useState("Нуж  
 
   const handleEdit = () => {
     setEditMode(true);
@@ -34,7 +42,7 @@ function PopBrowse() {
   };
 
   const handleSaveTask = async () => {
-    const updatedTask = await putTask({ id, user });
+    const updatedTask = await putTask({ taskId: id, user });
     if (updatedTask) {
       console.log("Задача успешно сохранена", updatedTask);
     } else {
@@ -250,7 +258,10 @@ function PopBrowse() {
               ) : (
                 <div className="pop-browse__btn-edit">
                   <div className="btn-group">
-                    <button onClick={handleSaveTask} className="btn-edit__edit _btn-bg _hover01">
+                    <button
+                      onClick={handleSaveTask}
+                      className="btn-edit__edit _btn-bg _hover01"
+                    >
                       <span>Сохранить</span>
                     </button>
                     <button
