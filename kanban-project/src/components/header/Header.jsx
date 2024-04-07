@@ -3,10 +3,13 @@ import * as S from "./Header.styled";
 import { Container } from "../../styled/common/common.styled";
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
+import { useUser } from "../../hooks/useUser";
 
 function Header() {
   // { addCard }
   const [isOpened, setIsOpened] = useState(false);
+
+  const { user } = useUser();
 
   function togglePopup() {
     setIsOpened((prev) => !prev);
@@ -33,7 +36,7 @@ function Header() {
             </Link>
 
             <div onClick={togglePopup} className="header__user _hover02">
-              Ivan Ivanov
+              {user.name}
             </div>
 
             {isOpened && (
@@ -42,12 +45,8 @@ function Header() {
                 id="user-set-target"
               >
                 {/* <!-- <a href="">x</a> --> */}
-                <p className="pop-user-set__name">Ivan Ivanov</p>
+                <p className="pop-user-set__name">{user.name}</p>
                 <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-                <div className="pop-user-set__theme">
-                  <p>Темная тема</p>
-                  <input type="checkbox" className="checkbox" name="checkbox" />
-                </div>
                 <Link to={appRoutes.EXIT}>
                   <button type="button" className="_hover03">
                     Выйти

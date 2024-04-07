@@ -29,7 +29,7 @@ function PopNewCard() {
     });
   };
 
-  console.log(newTask.status);
+  // console.log(newTask.status);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

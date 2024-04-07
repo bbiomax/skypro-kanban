@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { appRoutes } from "../../../lib/appRoutes";
 import { useState } from "react";
 import { deleteTask, putTask } from "../../../api";
@@ -8,16 +8,17 @@ import { useCards } from "../../../hooks/useCards";
 function PopBrowse() {
   const { id } = useParams();
   const { user } = useUser();
-  const { cards } = useCards();
-  console.log(user);
+  const { cards, setCards } = useCards();
+  const navigate = useNavigate();
+  // console.log(user);
 
   const card = cards.find((item) => {
     return item._id === id;
   });
   console.log(card);
+  console.log(cards);
 
   const [editMode, setEditMode] = useState(false);
-  // const [status, setStatus] = useState("Нуж  
 
   const handleEdit = () => {
     setEditMode(true);
@@ -26,6 +27,9 @@ function PopBrowse() {
   const handleDelete = async () => {
     const success = await deleteTask(user, id);
     if (success) {
+      const updatedTasks = cards.filter((task) => task._id !== id);
+      setCards([...updatedTasks]);
+      navigate(appRoutes.HOME);
       console.log("Задача успешно удалена");
     } else {
       console.error("Ошибка при удалении задачи");
@@ -60,7 +64,7 @@ function PopBrowse() {
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Название задачи: {id}</h3>
+              <h3 className="pop-browse__ttl">Название задачи: {card.title}</h3>
               <div className="categories__theme theme-top _orange _active-category">
                 <p className="_orange">Web Design</p>
               </div>
@@ -121,6 +125,7 @@ function PopBrowse() {
                     Описание задачи
                   </label>
                   <textarea
+                    value={card.description}
                     className="form-browse__area"
                     name="text"
                     id="textArea01"

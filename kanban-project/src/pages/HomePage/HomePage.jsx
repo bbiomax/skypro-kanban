@@ -25,7 +25,6 @@ function HomePage() {
     if (user && user.token) {
       getTodos({ token: user.token })
         .then((todos) => {
-          console.log(todos);
           setCards(todos.tasks);
           setIsLoading(false);
         })
