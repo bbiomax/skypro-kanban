@@ -34,6 +34,12 @@ function PopNewCard() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    if (!newTask.title || !newTask.description) {
+      alert("Пожалуйста, заполните все поля");
+      return;
+    } 
+
     postTask({ user, taskData: newTask }).then((response) => {
       setCards(response.tasks);
       navigate(appRoutes.HOME);
