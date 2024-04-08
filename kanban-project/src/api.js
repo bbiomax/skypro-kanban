@@ -97,7 +97,7 @@ export const deleteTask = async (user, taskId) => {
   }
 };
 
-export const putTask = async ({ taskId, user }) => {
+export const putTask = async ({ taskId, user, card, description: taskDescription }) => {
   const token = user.token;
 
   try {
@@ -107,11 +107,11 @@ export const putTask = async ({ taskId, user }) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        title: "Новая задача 2!",
-        topic: "Research",
-        status: "Без статуса",
-        description: "Подробное описание задачи",
-        date: "2024-01-07T16:26:18.179Z",
+        title: card.title,
+        topic: card.topic,
+        status: card.status,
+        description: taskDescription,
+        date: card.date,
       }),
     });
 

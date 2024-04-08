@@ -14,7 +14,6 @@ function PopBrowse() {
   const card = cards.find((item) => {
     return item._id === id;
   });
-  console.log(card);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -38,23 +37,22 @@ function PopBrowse() {
     setEditMode(false);
   };
 
+  const [description, setDescription] = useState(card ? card.description : "");
+
   const handleTextAreaChange = (e) => {
-    const textArea = e.target;
-    textArea.readOnly = !editMode;
+    setDescription(e.target.value);
   };
 
   const handleSaveTask = async () => {
-    const updatedTask = await putTask({ taskId: id, user });
+    const updatedTask = await putTask({ taskId: id, user, card, description });
     if (updatedTask) {
       console.log("Задача успешно сохранена", updatedTask);
+      setEditMode(false);
     } else {
       console.log("Ошибка сохранения задачи");
     }
   };
 
-  // const handleChangeStatus = (newStatus) => {
-  //   setStatus(newStatus);
-  // };
   let topicColor = card && (card.topic === "Research" ? "_green" : card.topic === "Web Design" ? "_orange" : "_purple");
 
   return (
@@ -128,8 +126,8 @@ function PopBrowse() {
                     Описание задачи
                   </label>
                   <textarea
-                    value={card ? card.description : ""}
-                    // value={card.description}
+                    // value={card ? card.description : ""}
+                    value={description}
                     className="form-browse__area"
                     name="text"
                     id="textArea01"
