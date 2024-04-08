@@ -1,5 +1,3 @@
-import { useUser } from "./hooks/useUser";
-
 const baseHost = "https://wedev-api.sky.pro/api/kanban";
 
 const userHost = "https://wedev-api.sky.pro/api/user";

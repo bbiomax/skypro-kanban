@@ -46,7 +46,7 @@ function Header() {
               >
                 {/* <!-- <a href="">x</a> --> */}
                 <p className="pop-user-set__name">{user.name}</p>
-                <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
+                <p className="pop-user-set__mail">{user.login}</p>
                 <Link to={appRoutes.EXIT}>
                   <button type="button" className="_hover03">
                     Выйти

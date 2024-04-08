@@ -18,6 +18,7 @@ function PopNewCard() {
     description: "",
     topic: "",
     status: "Без статуса",
+    date: "2024-01-07T16:26:18.179Z",
   });
 
   const handleInputChange = (e) => {

@@ -10,13 +10,11 @@ function PopBrowse() {
   const { user } = useUser();
   const { cards, setCards } = useCards();
   const navigate = useNavigate();
-  // console.log(user);
 
   const card = cards.find((item) => {
     return item._id === id;
   });
   console.log(card);
-  console.log(cards);
 
   const [editMode, setEditMode] = useState(false);
 
@@ -57,6 +55,7 @@ function PopBrowse() {
   // const handleChangeStatus = (newStatus) => {
   //   setStatus(newStatus);
   // };
+  let topicColor = card && (card.topic === "Research" ? "_green" : card.topic === "Web Design" ? "_orange" : "_purple");
 
   return (
     <div className="pop-browse" id="popBrowse">
@@ -64,9 +63,13 @@ function PopBrowse() {
         <div className="pop-browse__block">
           <div className="pop-browse__content">
             <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Название задачи: {card.title}</h3>
-              <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
+              {card && (
+                <h3 className="pop-browse__ttl">
+                  Название задачи: {card.title}
+                </h3>
+              )}
+              <div className={`categories__theme theme-top ${topicColor} _active-category`}>
+                {card && <p className={`${topicColor}`}>{card.topic}</p>}
               </div>
             </div>
 
@@ -125,7 +128,8 @@ function PopBrowse() {
                     Описание задачи
                   </label>
                   <textarea
-                    value={card.description}
+                    value={card ? card.description : ""}
+                    // value={card.description}
                     className="form-browse__area"
                     name="text"
                     id="textArea01"

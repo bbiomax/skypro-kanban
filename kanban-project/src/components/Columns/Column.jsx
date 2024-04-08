@@ -14,6 +14,7 @@ function Column({ columnTitle, cardList }) {
             title={card.title}
             key={card._id}
             id={card._id}
+            date={card.date}
           />
         ))}
       </S.StyledCards>
