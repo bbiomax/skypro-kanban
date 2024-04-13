@@ -4,6 +4,7 @@ import { useState } from "react";
 import { deleteTask, putTask } from "../../../api";
 import { useUser } from "../../../hooks/useUser";
 import { useCards } from "../../../hooks/useCards";
+import Calendar from "../../Calendar/Calendar";
 
 function PopBrowse() {
   const { id } = useParams();
@@ -15,11 +16,37 @@ function PopBrowse() {
     return item._id === id;
   });
 
+  const [selectedDate, setSelectedDate] = useState(card ? card.date : null);
+
+  // --------------------------------
+  const [newTask, setNewTask] = useState({
+    title: card ? card.title : "",
+    description: card ? card.description : "",
+    topic: card ? card.topic : "",
+    status: card ? card.status : "",
+    date: card ? card.date : "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setNewTask({
+      ...newTask,
+      [name]: value,
+    });
+  };
+  // --------------------------------
+
+  // -------------------------------- Edit Mode
   const [editMode, setEditMode] = useState(false);
 
   const handleEdit = () => {
     setEditMode(true);
   };
+  const handleCancelEdit = () => {
+    setEditMode(false);
+  };
+  // --------------------------------
 
   const handleDelete = async () => {
     const success = await deleteTask(user, id);
@@ -33,18 +60,8 @@ function PopBrowse() {
     }
   };
 
-  const handleCancelEdit = () => {
-    setEditMode(false);
-  };
-
-  const [description, setDescription] = useState(card ? card.description : "");
-
-  const handleTextAreaChange = (e) => {
-    setDescription(e.target.value);
-  };
-
   const handleSaveTask = async () => {
-    const updatedTask = await putTask({ taskId: id, user, card, description });
+    const updatedTask = await putTask({ taskId: id, user, card, description: newTask.description });
     if (updatedTask) {
       console.log("Задача успешно сохранена", updatedTask);
       setEditMode(false);
@@ -53,7 +70,13 @@ function PopBrowse() {
     }
   };
 
-  let topicColor = card && (card.topic === "Research" ? "_green" : card.topic === "Web Design" ? "_orange" : "_purple");
+  let topicColor =
+    card &&
+    (card.topic === "Research"
+      ? "_green"
+      : card.topic === "Web Design"
+      ? "_orange"
+      : "_purple");
 
   return (
     <div className="pop-browse" id="popBrowse">
@@ -66,7 +89,9 @@ function PopBrowse() {
                   Название задачи: {card.title}
                 </h3>
               )}
-              <div className={`categories__theme theme-top ${topicColor} _active-category`}>
+              <div
+                className={`categories__theme theme-top ${topicColor} _active-category`}
+              >
                 {card && <p className={`${topicColor}`}>{card.topic}</p>}
               </div>
             </div>
@@ -126,18 +151,17 @@ function PopBrowse() {
                     Описание задачи
                   </label>
                   <textarea
-                    // value={card ? card.description : ""}
-                    value={description}
+                    value={newTask.description}
                     className="form-browse__area"
-                    name="text"
+                    name="description"
                     id="textArea01"
                     readOnly={!editMode}
                     placeholder="Введите описание задачи..."
-                    onChange={handleTextAreaChange}
+                    onChange={handleInputChange}
                   ></textarea>
                 </div>
               </form>
-              <div className="pop-new-card__calendar calendar">
+              {/* <div className="pop-new-card__calendar calendar">
                 <p className="calendar__ttl subttl">Даты</p>
                 <div className="calendar__block">
                   <div className="calendar__nav">
@@ -238,7 +262,11 @@ function PopBrowse() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
             </div>
             <div className="theme-down__categories theme-down">
               <p className="categories__p subttl">Категория</p>
