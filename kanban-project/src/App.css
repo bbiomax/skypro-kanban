@@ -676,6 +676,7 @@ body {
   justify-content: flex-start;
 }
 .status__theme {
+  display: inline-block;
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   color: #94a6be;

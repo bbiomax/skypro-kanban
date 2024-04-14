@@ -5,6 +5,7 @@ import { deleteTask, putTask } from "../../../api";
 import { useUser } from "../../../hooks/useUser";
 import { useCards } from "../../../hooks/useCards";
 import Calendar from "../../Calendar/Calendar";
+import * as S from "./PopBrowse.styled";
 
 function PopBrowse() {
   const { id } = useParams();
@@ -61,10 +62,17 @@ function PopBrowse() {
   };
 
   const handleSaveTask = async () => {
-    const updatedTask = await putTask({ taskId: id, user, card, description: newTask.description });
+    const updatedTask = await putTask({
+      taskId: id,
+      user,
+      card: newTask,
+      description: newTask.description,
+    });
     if (updatedTask) {
       console.log("Задача успешно сохранена", updatedTask);
       setEditMode(false);
+      const updatedTasks = cards.filter((task) => task._id !== id);
+      setCards([...updatedTasks]);
     } else {
       console.log("Ошибка сохранения задачи");
     }
@@ -99,44 +107,59 @@ function PopBrowse() {
             {!editMode ? (
               <div className="pop-browse__status status">
                 <p className="status__p subttl">Статус</p>
-                <div className="status__themes">
-                  <div className="status__theme _hide">
-                    <p>Без статуса</p>
-                  </div>
                   <div className="status__theme _gray">
-                    <p className="_gray">Нужно сделать</p>
+                    <p className="_gray">{card && card.status}</p>
                   </div>
-                  <div className="status__theme _hide">
-                    <p>В работе</p>
-                  </div>
-                  <div className="status__theme _hide">
-                    <p>Тестирование</p>
-                  </div>
-                  <div className="status__theme _hide">
-                    <p>Готово</p>
-                  </div>
-                </div>
               </div>
             ) : (
               <div className="pop-browse__status status">
                 <p className="status__p subttl">Статус</p>
-                <div className="status__themes">
-                  <div className="status__theme">
-                    <p>Без статуса</p>
-                  </div>
-                  <div className="status__theme _gray">
-                    <p className="_gray">Нужно сделать</p>
-                  </div>
-                  <div className="status__theme">
-                    <p>В работе</p>
-                  </div>
-                  <div className="status__theme">
-                    <p>Тестирование</p>
-                  </div>
-                  <div className="status__theme">
-                    <p>Готово</p>
-                  </div>
-                </div>
+                <S.RadioToolbar>
+                  <S.InputRadio1
+                    type="radio"
+                    id="radio1"
+                    name="status"
+                    value="Без статуса"
+                    onChange={handleInputChange}
+                  />
+                  <S.LabelRadio htmlFor="radio1">Без статуса</S.LabelRadio>
+
+                  <S.InputRadio2
+                    type="radio"
+                    id="radio2"
+                    name="status"
+                    value="Нужно сделать"
+                    onChange={handleInputChange}
+                  />
+                  <S.LabelRadio htmlFor="radio2">Нужно сделать</S.LabelRadio>
+
+                  <S.InputRadio3
+                    type="radio"
+                    id="radio3"
+                    name="status"
+                    value="В работе"
+                    onChange={handleInputChange}
+                  />
+                  <S.LabelRadio htmlFor="radio3">В работе</S.LabelRadio>
+
+                  <S.InputRadio4
+                    type="radio"
+                    id="radio4"
+                    name="status"
+                    value="Тестирование"
+                    onChange={handleInputChange}
+                  />
+                  <S.LabelRadio htmlFor="radio4">Тестирование</S.LabelRadio>
+
+                  <S.InputRadio5
+                    type="radio"
+                    id="radio5"
+                    name="status"
+                    value="Готово"
+                    onChange={handleInputChange}
+                  />
+                  <S.LabelRadio htmlFor="radio5">Готово</S.LabelRadio>
+                </S.RadioToolbar>
               </div>
             )}
 
