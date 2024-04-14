@@ -1,17 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { appRoutes } from "../../../lib/appRoutes";
 import Calendar from "../../Calendar/Calendar";
 import { useState } from "react";
 import * as S from "./PopNewCard.styled";
-import { addNewTask } from "../../../api";
+import { postTask } from "../../../api";
+import { useUser } from "../../../hooks/useUser";
+import { useCards } from "../../../hooks/useCards";
 
 function PopNewCard() {
   const [selectedDate, setSelectedDate] = useState();
+  const { user } = useUser();
+  const { setCards } = useCards();
+  const navigate = useNavigate();
 
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
     topic: "",
+    status: "Без статуса",
+    date: "2024-01-07T16:26:18.179Z",
   });
 
   const handleInputChange = (e) => {
@@ -23,11 +30,21 @@ function PopNewCard() {
     });
   };
 
-  const addTask = addNewTask(newTask);
+  // console.log(newTask.status);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    addTask();
-  }
+
+    if (!newTask.title || !newTask.description) {
+      alert("Пожалуйста, заполните все поля");
+      return;
+    } 
+
+    postTask({ user, taskData: newTask }).then((response) => {
+      setCards(response.tasks);
+      navigate(appRoutes.HOME);
+    });
+  };
 
   return (
     <div className="pop-new-card" id="popNewCard">

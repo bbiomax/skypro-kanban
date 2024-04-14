@@ -1,5 +1,3 @@
-import { useUser } from "./hooks/useUser";
-
 const baseHost = "https://wedev-api.sky.pro/api/kanban";
 
 const userHost = "https://wedev-api.sky.pro/api/user";
@@ -66,21 +64,6 @@ export function signUp({ login, name, password }) {
 //   });
 // }
 
-export function addNewTask(taskData) {
-  const { user } = useUser();
-
-  const addTask = async () => {
-    try {
-      const response = await postTask({ user, taskData });
-      alert("Новая задача успешно добавлена:", response);
-    } catch (error) {
-      alert("Ошибка добавления новой задачи:", error);
-    }
-  };
-
-  return addTask;
-}
-
 export async function postTask({ user, taskData }) {
   const token = user.token;
   const res = await fetch(baseHost, {
@@ -93,3 +76,53 @@ export async function postTask({ user, taskData }) {
   const data = await res.json();
   return data;
 }
+
+export const deleteTask = async (user, taskId) => {
+  try {
+    const token = user.token;
+    const response = await fetch(`${baseHost}/${taskId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка удаления задачи");
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const putTask = async ({ taskId, user, card, description: taskDescription }) => {
+  const token = user.token;
+
+  try {
+    const res = await fetch(`${baseHost}/${taskId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title: card.title,
+        topic: card.topic,
+        status: card.status,
+        description: taskDescription,
+        date: card.date,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Ошибка сохранения задачи");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
